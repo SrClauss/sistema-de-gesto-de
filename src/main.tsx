@@ -5,7 +5,7 @@ import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 
 import App from './App.tsx'
 import { ErrorFallback } from './ErrorFallback.tsx'
-import { AppProvider } from './context/AppContext.jsx';
+import { AppProvider } from './context/AppContext';
 
 import "./main.css"
 import "./styles/theme.css"
