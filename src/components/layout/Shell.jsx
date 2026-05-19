@@ -100,7 +100,20 @@ export const Shell = ({ children }) => {
           <FormControl size="small" sx={{ minWidth: 140, mr: 2 }}>
             <Select
               value={modulo}
-              onChange={(e) => setModulo(e.target.value)}
+              onChange={(e) => {
+                const novoModulo = e.target.value;
+                setModulo(novoModulo);
+                
+                const paginasPorModulo = {
+                  gerencial: 'dashboard',
+                  colaborador: 'minhas-tarefas',
+                  empresa: 'portal',
+                };
+                
+                const novaPagina = paginasPorModulo[novoModulo];
+                setCurrentPage(novaPagina);
+                window.dispatchEvent(new CustomEvent('navigate', { detail: novaPagina }));
+              }}
               sx={{
                 color: 'white',
                 '.MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.3)' },
