@@ -4,6 +4,7 @@ import { Dashboard } from './modules/gerencial/Dashboard';
 import { ProjectList } from './modules/gerencial/ProjectList';
 import { CompanyDetail } from './modules/gerencial/CompanyDetail';
 import { Calendar } from './modules/gerencial/Calendar';
+import { CadastrosHub } from './modules/gerencial/CadastrosHub';
 import { MyTasks } from './modules/colaborador/MyTasks';
 import { CompanyPortal } from './modules/empresa/CompanyPortal';
 
@@ -32,6 +33,8 @@ function App() {
       return <ProjectList onSelectEmpresa={setSelectedEmpresa} />;
     } else if (currentView === 'calendario') {
       return <Calendar />;
+    } else if (currentView === 'cadastros') {
+      return <CadastrosHub />;
     } else if (currentView === 'minhas-tarefas') {
       return <MyTasks />;
     } else if (currentView === 'portal') {

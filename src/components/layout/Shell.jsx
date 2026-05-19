@@ -21,6 +21,7 @@ import {
   Business,
   CalendarMonth,
   Assignment,
+  Settings,
 } from '@mui/icons-material';
 import { useApp } from '../../context/AppContext';
 
@@ -41,6 +42,7 @@ export const Shell = ({ children }) => {
         { id: 'dashboard', label: 'Dashboard', icon: <Dashboard /> },
         { id: 'carteira', label: 'Carteira', icon: <Business /> },
         { id: 'calendario', label: 'Calendário', icon: <CalendarMonth /> },
+        { id: 'cadastros', label: 'Cadastros', icon: <Settings /> },
       ];
     } else if (modulo === 'colaborador') {
       return [{ id: 'minhas-tarefas', label: 'Minhas Tarefas', icon: <Assignment /> }];

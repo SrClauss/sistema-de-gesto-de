@@ -9,6 +9,7 @@ interface Colaborador {
 
 interface AppContextType {
   data: typeof initialData;
+  setData: React.Dispatch<React.SetStateAction<typeof initialData>>;
   modulo: string;
   setModulo: (modulo: string) => void;
   colaboradorLogado: Colaborador;
@@ -310,6 +311,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
   const value = {
     data,
+    setData,
     modulo,
     setModulo,
     colaboradorLogado,
