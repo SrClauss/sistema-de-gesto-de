@@ -27,6 +27,12 @@ interface AppContextType {
     escopo: 'period' | 'future' | 'all';
   }) => void;
   resolverPrereq: (docId: string) => void;
+  adicionarDocumentoModelo: (documento: any) => void;
+  editarDocumentoModelo: (id: string, documento: any) => void;
+  excluirDocumentoModelo: (id: string) => void;
+  adicionarCondicionanteModelo: (condicionante: any) => void;
+  editarCondicionanteModelo: (id: string, condicionante: any) => void;
+  excluirCondicionanteModelo: (id: string) => void;
   kpis: {
     empresas: number;
     pendentes: number;
@@ -38,6 +44,8 @@ interface AppContextType {
 }
 
 const AppContext = createContext<AppContextType | null>(null);
+
+export { AppContext };
 
 export const useApp = () => {
   const context = useContext(AppContext);
@@ -309,6 +317,62 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     return { empresas, pendentes, atrasadas, concluidas, aguardando, docsBloqueados };
   }, [data]);
 
+  const adicionarDocumentoModelo = (documento: any) => {
+    setData((prev) => {
+      const newData = JSON.parse(JSON.stringify(prev));
+      const newId = `docmod_${Date.now()}`;
+      newData.catalogos.documentos_modelo.push({ id: newId, ...documento });
+      return newData;
+    });
+  };
+
+  const editarDocumentoModelo = (id: string, documento: any) => {
+    setData((prev) => {
+      const newData = JSON.parse(JSON.stringify(prev));
+      const index = newData.catalogos.documentos_modelo.findIndex((d: any) => d.id === id);
+      if (index !== -1) {
+        newData.catalogos.documentos_modelo[index] = { id, ...documento };
+      }
+      return newData;
+    });
+  };
+
+  const excluirDocumentoModelo = (id: string) => {
+    setData((prev) => {
+      const newData = JSON.parse(JSON.stringify(prev));
+      newData.catalogos.documentos_modelo = newData.catalogos.documentos_modelo.filter((d: any) => d.id !== id);
+      return newData;
+    });
+  };
+
+  const adicionarCondicionanteModelo = (condicionante: any) => {
+    setData((prev) => {
+      const newData = JSON.parse(JSON.stringify(prev));
+      const newId = `condmod_${Date.now()}`;
+      newData.catalogos.condicionantes_modelo.push({ id: newId, ...condicionante });
+      return newData;
+    });
+  };
+
+  const editarCondicionanteModelo = (id: string, condicionante: any) => {
+    setData((prev) => {
+      const newData = JSON.parse(JSON.stringify(prev));
+      const index = newData.catalogos.condicionantes_modelo.findIndex((c: any) => c.id === id);
+      if (index !== -1) {
+        newData.catalogos.condicionantes_modelo[index] = { id, ...condicionante };
+      }
+      return newData;
+    });
+  };
+
+  const excluirCondicionanteModelo = (id: string) => {
+    setData((prev) => {
+      const newData = JSON.parse(JSON.stringify(prev));
+      newData.catalogos.condicionantes_modelo = newData.catalogos.condicionantes_modelo.filter((c: any) => c.id !== id);
+      return newData;
+    });
+  };
+
   const value = {
     data,
     setData,
@@ -323,6 +387,12 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     atribuirResponsavelEmpresa,
     atribuirEmMassa,
     resolverPrereq,
+    adicionarDocumentoModelo,
+    editarDocumentoModelo,
+    excluirDocumentoModelo,
+    adicionarCondicionanteModelo,
+    editarCondicionanteModelo,
+    excluirCondicionanteModelo,
     kpis,
   };
 
