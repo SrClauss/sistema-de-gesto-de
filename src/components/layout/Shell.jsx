@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -35,6 +35,15 @@ export const Shell = ({ children }) => {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  useEffect(() => {
+    const handleNavigate = (e) => {
+      const view = e.detail && typeof e.detail === 'object' ? e.detail.view : e.detail;
+      if (view) setCurrentPage(view);
+    };
+    window.addEventListener('navigate', handleNavigate);
+    return () => window.removeEventListener('navigate', handleNavigate);
+  }, []);
 
   const getMenuItems = () => {
     if (modulo === 'gerencial') {

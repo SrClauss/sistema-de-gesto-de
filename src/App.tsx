@@ -14,9 +14,12 @@ function App() {
 
   useEffect(() => {
     const handleNavigate = (e) => {
-      setCurrentView(e.detail);
-      if (e.detail !== 'carteira') {
-        setSelectedEmpresa(null);
+      if (e.detail && typeof e.detail === 'object') {
+        setCurrentView(e.detail.view);
+        if (e.detail.empresa) setSelectedEmpresa(e.detail.empresa);
+      } else {
+        setCurrentView(e.detail);
+        if (e.detail !== 'carteira') setSelectedEmpresa(null);
       }
     };
     window.addEventListener('navigate', handleNavigate);
